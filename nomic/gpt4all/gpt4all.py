@@ -15,7 +15,7 @@ except ImportError:
 class GPT4AllGPU():
     def __init__(self, llama_path=None):
         from peft import PeftModelForCausalLM
-        from transformers import LlamaForCausalLM, LlamaTokenizer
+        from transformers import LlamaForCausalLM, LLaMATokenizer
 
         if llama_path is None:
             raise ValueError('Please pass a path to your alpaca model.')
@@ -26,7 +26,7 @@ class GPT4AllGPU():
         self.model = LlamaForCausalLM.from_pretrained(self.model_path,
                                                           device_map="auto",
                                                           torch_dtype=torch.float16)
-        self.tokenizer = LlamaTokenizer.from_pretrained(self.tokenizer_path)
+        self.tokenizer = LLaMATokenizer.from_pretrained(self.tokenizer_path)
         added_tokens = self.tokenizer.add_special_tokens({"bos_token": "<s>", "eos_token": "</s>", "pad_token": "<pad>"})
 
         if added_tokens > 0:
